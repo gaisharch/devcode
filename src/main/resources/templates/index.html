@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<form>
+
+    <table width="450px">
+        <tr>
+            <td valign="top">
+                <label th:text="'First name : ' + ${firstName} + '!'" />
+            </td>
+        </tr>
+
+        <tr>
+            <td valign="top">
+                <label th:text="'Last name:  ' + ${lastName} + '!'" />
+            </td>
+
+        <tr>
+            <td valign="top">
+                <label th:text="'Street : ' + ${Street} + '!'" />
+            </td>
+
+        <tr>
+            <td valign="top">
+                <label th:text="'City :  ' + ${city} + '!'" />
+            </td>
+
+        <tr>
+            <td valign="top">
+                <label th:text="'Country : ' + ${country} + '!'" />
+            </td>
+
+        <tr>
+            <td valign="top">
+                <label th:text="'Date of birth : ' + ${dob} + '!'" />
+            </td>
+         </tr>
+
+        <tr>
+            <td valign="top">
+                <label th:text="'Balance :  ' + ${balance} + '!'" />
+            </td>
+        </tr>
+
+    </table>
+
+</form>
+</body>
+</html>
