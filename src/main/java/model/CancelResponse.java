@@ -3,6 +3,8 @@ package model;
 
 import org.immutables.value.Value;
 
+import java.util.Optional;
+
 @Value.Style(stagedBuilder = true)
 @Value.Immutable
 public interface CancelResponse {
@@ -11,7 +13,7 @@ public interface CancelResponse {
 
     Boolean success();
 
-    Number errCode();
+    Optional<Number> errCode();
 
-    String errMsg();
+    Optional<String> errMsg();
 }

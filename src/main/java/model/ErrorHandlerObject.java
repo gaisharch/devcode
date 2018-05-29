@@ -1,7 +1,7 @@
 package model;
 
 
-public class StatusObject {
+public class ErrorHandlerObject {
 
     int code;
     String message;

@@ -1,8 +1,8 @@
 package controller;
 
 
-import dummy.DummyOperatorPlatform;
-import model.VerifyUserResponse;
+import payment.PaymentHandler;
+import model.DevCodeUserCustomer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,16 +18,17 @@ public class MainController {
     }
 
     private void setUser(Model model) {
-        DummyOperatorPlatform op = new DummyOperatorPlatform();
-        VerifyUserResponse user = op.getDummyUser("1");
-        model.addAttribute("firstName", user.firstName());
-        model.addAttribute("lastName", user.lastName());
-        model.addAttribute("Street", user.street());
-        model.addAttribute("city", user.city());
-        model.addAttribute("country", user.country());
-        model.addAttribute("email", user.email());
-        model.addAttribute("dob", user.dob());
-        model.addAttribute("balance", user.balance());
+        PaymentHandler op = new PaymentHandler();
+        DevCodeUserCustomer user = op.getCustomerByUserId("1");
+        model.addAttribute("firstName", user.getFirstName());
+        model.addAttribute("lastName", user.getLastName());
+        model.addAttribute("Street", user.getStreet());
+        model.addAttribute("city", user.getCity());
+        model.addAttribute("country", user.getCountry());
+        model.addAttribute("email", user.getEmail());
+        model.addAttribute("dob", user.getDob());
+        model.addAttribute("balance", user.getBalance());
+        
     }
 
 }

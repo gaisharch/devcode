@@ -3,6 +3,8 @@ package model;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.immutables.value.Value;
 
+import java.util.Optional;
+
 @Value.Style(stagedBuilder = true)
 @Value.Immutable
 @JsonSerialize(as = ImmutableAuthorizedResponse.class)
@@ -12,14 +14,12 @@ public interface AuthorizedResponse {
 
     Boolean success();
 
-    String txId();
-
     String merchantTxId();
 
     String authCode();
 
-    Number errCode();
+    Optional<Number> errCode();
 
-    String errMsg();
+    Optional<String> errMsg();
 
 }
