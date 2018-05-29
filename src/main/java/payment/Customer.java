@@ -4,10 +4,7 @@ import model.DevCodeUserCustomer;
 
 public class Customer {
 
-    public Customer() {
-    }
-
-    public static DevCodeUserCustomer create(){
+    public static DevCodeUserCustomer create() {
         DevCodeUserCustomer customer = new DevCodeUserCustomer();
         customer.setUserId("1");
         customer.setSuccess(true);

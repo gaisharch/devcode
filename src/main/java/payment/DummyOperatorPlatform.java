@@ -1,29 +1,26 @@
 package payment;
 
-import model.AuthorizeRequest;
-import model.CancelRequest;
-import model.TransferRequest;
-import model.VerifyUserRequest;
-import org.springframework.beans.factory.annotation.Autowired;
+import model.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import util.JsonConverter;
 import util.WhiteListControl;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Component
 public class DummyOperatorPlatform {
 
-    @Autowired
     private JsonConverter converter;
 
-    @Autowired
     private PaymentHandler paymentHandler;
 
-    @Autowired
     private WhiteListControl whiteListControl;
+
+    public DummyOperatorPlatform() {
+        converter = new JsonConverter();
+        paymentHandler = new PaymentHandler();
+        whiteListControl = new WhiteListControl();
+    }
 
     public ResponseEntity<String> verifyUserResponse(VerifyUserRequest request, HttpServletRequest servletRequest) {
         return whiteListControl.isRequestAuthorized(servletRequest)
@@ -47,6 +44,10 @@ public class DummyOperatorPlatform {
         return whiteListControl.isRequestAuthorized(servletRequest)
                 ? responseEntityString(paymentHandler.cancel(request))
                 : DummyResponseUtil.getClientNotAuthorizedResponse();
+    }
+
+    public DevCodeUserCustomer getCustomerByUserId(String userId) {
+        return paymentHandler.getCustomerByUserId(userId);
     }
 
     private ResponseEntity<String> responseEntityString(Object response) {

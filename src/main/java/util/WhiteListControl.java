@@ -1,6 +1,5 @@
 package util;
 
-import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -8,7 +7,6 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Properties;
 
-@Component
 public class WhiteListControl {
 
     public boolean isRequestAuthorized(HttpServletRequest servletRequest) {

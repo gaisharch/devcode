@@ -1,39 +1,34 @@
 package payment;
 
 import model.*;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
 public class PaymentHandler {
     private Map<String, DevCodeUserCustomer> customerList;
     private Map<String, Number> reservedAmountHolder;
+    private Map<String, Number> oldBalanceHolder;
 
-    public PaymentHandler() {
+    PaymentHandler() {
         initList();
     }
 
     private void initList() {
         customerList = new HashMap<>();
         reservedAmountHolder = new HashMap<>();
+        oldBalanceHolder = new HashMap<>();
         DevCodeUserCustomer customer = Customer.create();
         customerList.put(customer.getUserId(), customer);
     }
 
-    public DevCodeUserCustomer getCustomerByUserId(String userId) {
-        return customerList.get(userId);
-    }
-
-
     public VerifyUserResponse verifyUser(String userId) {
-            DevCodeUserCustomer customer = getCustomerByUserId(userId);
-            if (customer != null) {
-                return DummyResponseUtil.CreateVerifyUserResponse(customer);
-            } else {
-                return DummyResponseUtil.getUserNotFoundResponse();
-            }
+        DevCodeUserCustomer customer = getCustomerByUserId(userId);
+        if (customer != null) {
+            return DummyResponseUtil.CreateVerifyUserResponse(customer);
+        } else {
+            return DummyResponseUtil.getUserNotFoundResponse();
+        }
     }
 
     public AuthorizedResponse authorizePayment(AuthorizeRequest request) {
@@ -46,11 +41,24 @@ public class PaymentHandler {
     }
 
 
+    public TransferResponse transferResponse(TransferRequest request) {
+        if (transferMoneyToUser(request)) {
+            return DummyResponseUtil.getTransferResponse(request);
+        } else {
+            return DummyResponseUtil.getFailedTransferResponse(request);
+        }
+    }
+
+    public DevCodeUserCustomer getCustomerByUserId(String userId) {
+        return customerList.get(userId);
+    }
+
     private void reserveCustomerAuthorizedPaymentAmount(AuthorizeRequest request) {
         DevCodeUserCustomer customer = customerList.get(request.getUserId());
-        double newUserBalance = customer.getBalance().doubleValue();
-        newUserBalance += getAuthorizedTransactionAmount(request).doubleValue();
-        reservedAmountHolder.put(request.getTxId(), newUserBalance);
+        double balance = customer.getBalance().doubleValue();
+        oldBalanceHolder.put(request.getTxId(),balance);
+        balance += getAuthorizedTransactionAmount(request).doubleValue();
+        reservedAmountHolder.put(request.getTxId(), balance);
     }
 
     private Number getAuthorizedMoneyTransfer(String txId) {
@@ -73,22 +81,12 @@ public class PaymentHandler {
     }
 
 
-    public TransferResponse transferResponse(TransferRequest request) {
-        if (transferMoneyToUser(request)) {
-            return DummyResponseUtil.getTransferResponse(request);
-        }else{
-            return DummyResponseUtil.getFailedTransferResponse(request);
-        }
-    }
-
     private void updateUserBalance(double txAmount, DevCodeUserCustomer user) {
         customerList.replace(user.getUserId(), addNewUserBalance(txAmount, user));
     }
 
     private DevCodeUserCustomer addNewUserBalance(double txAmount, DevCodeUserCustomer user) {
-        double balance = user.getBalance().doubleValue();
-        balance += txAmount;
-        user.setBalance(balance);
+        user.setBalance(txAmount);
         return user;
     }
 
@@ -108,7 +106,7 @@ public class PaymentHandler {
     }
 
     private void cancelTransaction(CancelRequest request, DevCodeUserCustomer user) {
-        Number cancelAmount = reservedAmountHolder.get(request.getTxId());
+        Number cancelAmount = oldBalanceHolder.get(request.getTxId());
         user.setBalance(cancelAmount);
         customerList.replace(request.getUserId(), user);
     }

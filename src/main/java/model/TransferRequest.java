@@ -1,6 +1,7 @@
 package model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.UUID;
@@ -33,20 +34,21 @@ public class TransferRequest {
     private final String pspStatusMessage;
     private final Object attributes;
 
-    public TransferRequest(@JsonProperty("userId")String userId,
-                           @JsonProperty("authCode")String authCode,
-                           @JsonProperty("txAmount")String txAmount,
-                           @JsonProperty("txAmountCy")String txAmountCy,
-                           @JsonProperty("txPspAmount")String txPspAmount,
-                           @JsonProperty("txPspAmountCy")String txPspAmountCy,
-                           @JsonProperty("fee")String fee,
-                           @JsonProperty("feeCy")String feeCy,
-                           @JsonProperty("feeMode")String feeMode,
+    @JsonCreator
+    public TransferRequest(@JsonProperty("userId") String userId,
+                           @JsonProperty("authCode") String authCode,
+                           @JsonProperty("txAmount") String txAmount,
+                           @JsonProperty("txAmountCy") String txAmountCy,
+                           @JsonProperty("txPspAmount") String txPspAmount,
+                           @JsonProperty("txPspAmountCy") String txPspAmountCy,
+                           @JsonProperty("fee") String fee,
+                           @JsonProperty("feeCy") String feeCy,
+                           @JsonProperty("feeMode") String feeMode,
                            @JsonProperty("txId") String txId,
                            @JsonProperty("txTypeId") Number txTypeId,
                            @JsonProperty("txName") String txName,
                            @JsonProperty("provider") String provider,
-                           @JsonProperty("provider") String pspService,
+                           @JsonProperty("pspService") String pspService,
                            @JsonProperty("txRefId") String txRefId,
                            @JsonProperty("originTxId") String originTxId,
                            @JsonProperty("maskedAccount") UUID maskedAccount,

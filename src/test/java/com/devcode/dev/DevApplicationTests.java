@@ -2,11 +2,24 @@ package com.devcode.dev;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.ImmutableAuthorizedResponse;
+import model.AuthorizeRequest;
+import model.CancelRequest;
+import model.TransferRequest;
+import org.junit.Before;
 import org.junit.Test;
+import org.springframework.http.HttpStatus;
+import util.JsonConverter;
+
+import java.util.UUID;
 
 
 public class DevApplicationTests {
+
+    private JsonConverter converter;
+    @Before
+    public void init(){
+        converter = new JsonConverter();
+    }
 
     @Test
     public void testConvertJson() throws JsonProcessingException {
@@ -17,14 +30,10 @@ public class DevApplicationTests {
         obj.setUserId(1);
         obj.setZipCode(17563);
 
-        System.out.println(" = " + convert(obj));
+        System.out.println(" = " + converter.createResponseEntity(obj, HttpStatus.OK));
 
     }
 
-    private <T> String convert(T input) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.writeValueAsString(input);
-    }
 
     @Test
     public void testMoney() {
@@ -35,15 +44,89 @@ public class DevApplicationTests {
         double negRes = Double.parseDouble(neg);
         System.out.println("posRes = " + posRes);
         System.out.println("negRes = " + negRes);
-        balance+=-10.0;
+        balance += -10.0;
         System.out.println("negRes = " + balance);
     }
 
-    @Test
-    public void concert(){
 
+    // creating request to use e.g on postman to test application manually
+    @Test
+    public void concertAuthorizedToJSON() {
+        AuthorizeRequest request = new AuthorizeRequest("1",
+                "200",
+                "SEK",
+                "1",
+                1,
+                "1",
+                "1", "1",
+                "1",
+                new UUID(1,
+                        1),
+                "gais",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                null);
+        converter.createResponseEntity(request,HttpStatus.OK);
     }
 
+    @Test
+    public void concertTransferToJSON() {
+        TransferRequest request = new TransferRequest(
+                "1",
+                "1",
+                "200",
+                "SEK",
+                "",
+                "1",
+                "1", "1",
+                "1",
+                "1",
+                1,
+                "gais",
+                "1",
+                "1",
+                "1",
+                "1",
+                new UUID(1,
+                        1),
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                null);
+        converter.createResponseEntity(request,HttpStatus.OK);
+    }
+
+    @Test
+    public void convertCancelRequestToJson(){
+        CancelRequest request = new CancelRequest("1",
+                "1",
+                "300",
+                "SEK",
+                "1",
+                1,
+                "1",
+                "1",
+                "1",
+                new UUID(1,1),
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                null);
+
+        converter.createResponseEntity(request,HttpStatus.OK);
+    }
 
 }
 

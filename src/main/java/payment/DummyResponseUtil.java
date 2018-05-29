@@ -53,21 +53,21 @@ public class DummyResponseUtil {
                 .build();
     }
 
-    public static AuthorizedResponse getCustomerAuthorizedResponse(AuthorizeRequest request) {
+     static AuthorizedResponse getCustomerAuthorizedResponse(AuthorizeRequest request) {
         return ImmutableAuthorizedResponse.builder().
                 userId(request.getUserId()).success(true).
                 merchantTxId("123123123123").
                 authCode("550e8400-e29b-41d4-a716-446655440000").build();
     }
 
-    public static AuthorizedResponse getCustomerNotAuthorized(AuthorizeRequest request) {
+     static AuthorizedResponse getCustomerNotAuthorized(AuthorizeRequest request) {
         return ImmutableAuthorizedResponse.builder().
                 userId(request.getUserId()).success(false).
                 merchantTxId("0").
                 authCode("0").errCode(403).errMsg("Account not valid").build();
     }
 
-    public static TransferResponse getFailedTransferResponse(TransferRequest request) {
+     static TransferResponse getFailedTransferResponse(TransferRequest request) {
         return ImmutableTransferResponse.builder()
                 .userId(request.getUserId())
                 .success(false).txId("111111111")
@@ -76,7 +76,7 @@ public class DummyResponseUtil {
                 .errMsg("Transaction failed").build();
     }
 
-    public static TransferResponse getTransferResponse(TransferRequest request) {
+     static TransferResponse getTransferResponse(TransferRequest request) {
         return ImmutableTransferResponse.builder()
                 .userId(request.getUserId())
                 .success(true)
@@ -84,10 +84,10 @@ public class DummyResponseUtil {
                 .merchantTxId("11111").build();
     }
 
-    public static CancelResponse getFailedCancelResponse(CancelRequest request) {
+     static CancelResponse getFailedCancelResponse(CancelRequest request) {
         return ImmutableCancelResponse.builder().userId(request.getUserId()).success(false).errCode(403).errMsg("Cancel request failed").build();
     }
-    public static CancelResponse getCancelResponse(CancelRequest request) {
+     static CancelResponse getCancelResponse(CancelRequest request) {
         return ImmutableCancelResponse.builder().userId(request.getUserId()).success(true).build();
     }
 

@@ -11,7 +11,7 @@ public class VerifyUserRequest {
 
     @JsonCreator
     public VerifyUserRequest(@JsonProperty("sessionId") String sessionId,
-                             @JsonProperty("userId")String userId) {
+                             @JsonProperty("userId") String userId) {
         this.sessionId = sessionId;
         this.userId = userId;
     }

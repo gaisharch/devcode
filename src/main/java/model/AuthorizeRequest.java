@@ -1,45 +1,47 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.UUID;
 
 public class AuthorizeRequest {
-    private String userId;
-    private String txAmount;
-    private String txAmountCy;
-    private String txId;
-    private Number txTypeId;
-    private String txName;
-    private String provider;
-    private String pspService;
-    private String originTxId;
-    private UUID accountId;
-    private String accountHolder;
-    private String maskedAccount;
-    private String pspFee;
-    private String pspFeeCy;
-    private String pspFeeBase;
-    private String pspFeeBaseCy;
-    private Object attributes;
+    private final String userId;
+    private final String txAmount;
+    private final String txAmountCy;
+    private final String txId;
+    private final Number txTypeId;
+    private final String txName;
+    private final String provider;
+    private final String pspService;
+    private final String originTxId;
+    private final UUID accountId;
+    private final String accountHolder;
+    private final String maskedAccount;
+    private final String pspFee;
+    private final String pspFeeCy;
+    private final String pspFeeBase;
+    private final String pspFeeBaseCy;
+    private final Object attributes;
 
-    public AuthorizeRequest(@JsonProperty("userId")String userId,
-                            @JsonProperty("txAmount")String txAmount,
-                            @JsonProperty("txAmountCy")String txAmountCy,
-                            @JsonProperty("txId")String txId,
-                            @JsonProperty("txTypeId")Number txTypeId,
-                            @JsonProperty("txName")String txName,
-                            @JsonProperty("provider")String provider,
-                            @JsonProperty("pspService")String pspService,
-                            @JsonProperty("originTxId")String originTxId,
-                            @JsonProperty("accountId")UUID accountId,
-                            @JsonProperty("accountHolder")String accountHolder,
-                            @JsonProperty("maskedAccount")String maskedAccount,
-                            @JsonProperty("pspFee")String pspFee,
-                            @JsonProperty("pspFeeCy")String pspFeeCy,
-                            @JsonProperty("pspFeeBase")String pspFeeBase,
-                            @JsonProperty("pspFeeBaseCy")String pspFeeBaseCy,
-                            @JsonProperty("attributes")Object attributes) {
+    @JsonCreator
+    public AuthorizeRequest(@JsonProperty("userId") String userId,
+                            @JsonProperty("txAmount") String txAmount,
+                            @JsonProperty("txAmountCy") String txAmountCy,
+                            @JsonProperty("txId") String txId,
+                            @JsonProperty("txTypeId") Number txTypeId,
+                            @JsonProperty("txName") String txName,
+                            @JsonProperty("provider") String provider,
+                            @JsonProperty("pspService") String pspService,
+                            @JsonProperty("originTxId") String originTxId,
+                            @JsonProperty("accountId") UUID accountId,
+                            @JsonProperty("accountHolder") String accountHolder,
+                            @JsonProperty("maskedAccount") String maskedAccount,
+                            @JsonProperty("pspFee") String pspFee,
+                            @JsonProperty("pspFeeCy") String pspFeeCy,
+                            @JsonProperty("pspFeeBase") String pspFeeBase,
+                            @JsonProperty("pspFeeBaseCy") String pspFeeBaseCy,
+                            @JsonProperty("attributes") Object attributes) {
         this.userId = userId;
         this.txAmount = txAmount;
         this.txAmountCy = txAmountCy;
